@@ -1,11 +1,4 @@
 import { metorial } from '@metorial/mcp-server-sdk';
-import { registerTelegramTools } from './tools/telegram.ts';
-import { registerAppointmentTools } from './tools/appointments.ts';
-import { registerPatientTools } from './tools/patients.ts';
-import { registerUserTools } from './tools/users.ts';
-import { registerOrganizationTools } from './tools/organization.ts';
-import { registerPriceTools } from './tools/prices.ts';
-import { registerPaymentTools } from './tools/payments.ts';
 
 interface MetorialConfig {
   DOCTOC_API_TOKEN: string;
@@ -21,14 +14,23 @@ metorial.createServer<MetorialConfig>(
     version: '1.0.0',
   },
   async (server, args) => {
-    // Inyectar las propiedades de Metorial como variables de entorno
-    // para que config.ts y los clientes HTTP las lean correctamente
+    // 1. Inyectar credenciales ANTES de importar los modulos
     process.env.DOCTOC_API_TOKEN = args.DOCTOC_API_TOKEN;
     process.env.DOCTOC_ORG_ID = args.DOCTOC_ORG_ID;
     process.env.DOCTOC_API_URL = args.DOCTOC_API_URL;
     process.env.UNIPILE_DSN = args.UNIPILE_DSN;
     process.env.UNIPILE_API_KEY = args.UNIPILE_API_KEY;
 
+    // 2. Imports dinamicos DESPUES de setear env vars
+    const { registerTelegramTools } = await import('./tools/telegram.ts');
+    const { registerAppointmentTools } = await import('./tools/appointments.ts');
+    const { registerPatientTools } = await import('./tools/patients.ts');
+    const { registerUserTools } = await import('./tools/users.ts');
+    const { registerOrganizationTools } = await import('./tools/organization.ts');
+    const { registerPriceTools } = await import('./tools/prices.ts');
+    const { registerPaymentTools } = await import('./tools/payments.ts');
+
+    // 3. Registrar los 30 tools
     registerTelegramTools(server);
     registerAppointmentTools(server);
     registerPatientTools(server);
