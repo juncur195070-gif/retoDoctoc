@@ -33,6 +33,10 @@ export function loadConfig(): Config {
 
 let _config: Config | null = null;
 
+export function setConfig(cfg: Config): void {
+  _config = cfg;
+}
+
 export function getConfig(): Config {
   if (!_config) {
     _config = loadConfig();
@@ -40,7 +44,7 @@ export function getConfig(): Config {
   return _config;
 }
 
-// Mantener export para compatibilidad con index.ts local
+// Proxy lazy: no llama loadConfig() hasta que se accede a una propiedad
 export const config = new Proxy({} as Config, {
   get(_target, prop: string) {
     return getConfig()[prop as keyof Config];
