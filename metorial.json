@@ -1,4 +1,4 @@
 {
-  "runtime": "typescript.deno",
-  "entrypoint": "src/metorial.ts"
+  "name": "mcp-doctoc-carla",
+  "runtime": "typescript.deno"
 }

@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "main": "build/src/index.js",
+  "main": "src/metorial.ts",
   "scripts": {
     "build": "tsc && chmod 755 build/src/index.js",
     "start": "node build/src/index.js",
