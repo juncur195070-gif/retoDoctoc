@@ -8,26 +8,25 @@ export interface Config {
   port: number;
 }
 
-function requireEnv(name: string): string {
-  const value = process.env[name];
-  if (!value) {
-    console.error(`[mcp-doctoc-carla] ADVERTENCIA: Variable de entorno no encontrada: ${name}`);
+function getEnv(name: string): string {
+  try {
+    return (typeof process !== 'undefined' && process.env?.[name]) || '';
+  } catch {
     return '';
   }
-  return value;
 }
 
 export function loadConfig(): Config {
   return {
     doctocApiUrl:
-      process.env.DOCTOC_API_URL ??
+      getEnv('DOCTOC_API_URL') ||
       'https://us-central1-doctoc-platform.cloudfunctions.net',
-    doctocApiToken: requireEnv('DOCTOC_API_TOKEN'),
-    doctocOrgId: requireEnv('DOCTOC_ORG_ID'),
-    unipileDsn: requireEnv('UNIPILE_DSN'),
-    unipileApiKey: requireEnv('UNIPILE_API_KEY'),
-    transport: process.env.TRANSPORT === 'http' ? 'http' : 'stdio',
-    port: parseInt(process.env.PORT ?? '3000', 10),
+    doctocApiToken: getEnv('DOCTOC_API_TOKEN'),
+    doctocOrgId: getEnv('DOCTOC_ORG_ID'),
+    unipileDsn: getEnv('UNIPILE_DSN'),
+    unipileApiKey: getEnv('UNIPILE_API_KEY'),
+    transport: getEnv('TRANSPORT') === 'http' ? 'http' : 'stdio',
+    port: parseInt(getEnv('PORT') || '3000', 10),
   };
 }
 

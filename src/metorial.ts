@@ -1,4 +1,12 @@
 import { metorial } from '@metorial/mcp-server-sdk';
+import { setConfig } from './config.ts';
+import { registerTelegramTools } from './tools/telegram.ts';
+import { registerAppointmentTools } from './tools/appointments.ts';
+import { registerPatientTools } from './tools/patients.ts';
+import { registerUserTools } from './tools/users.ts';
+import { registerOrganizationTools } from './tools/organization.ts';
+import { registerPriceTools } from './tools/prices.ts';
+import { registerPaymentTools } from './tools/payments.ts';
 
 interface MetorialConfig {
   DOCTOC_API_TOKEN: string;
@@ -14,36 +22,32 @@ metorial.createServer<MetorialConfig>(
     version: '1.0.0',
   },
   async (server, args) => {
-    // 1. Inyectar config directamente (sin process.env para Deno)
-    const { setConfig } = await import('./config.ts');
+    try {
+      // 1. Inyectar config ANTES de que cualquier tool acceda a config
+      setConfig({
+        doctocApiUrl:
+          args?.DOCTOC_API_URL || 'https://us-central1-doctoc-platform.cloudfunctions.net',
+        doctocApiToken: args?.DOCTOC_API_TOKEN || '',
+        doctocOrgId: args?.DOCTOC_ORG_ID || '',
+        unipileDsn: args?.UNIPILE_DSN || '',
+        unipileApiKey: args?.UNIPILE_API_KEY || '',
+        transport: 'stdio',
+        port: 3000,
+      });
 
-    setConfig({
-      doctocApiUrl:
-        args?.DOCTOC_API_URL || 'https://us-central1-doctoc-platform.cloudfunctions.net',
-      doctocApiToken: args?.DOCTOC_API_TOKEN || '',
-      doctocOrgId: args?.DOCTOC_ORG_ID || '',
-      unipileDsn: args?.UNIPILE_DSN || '',
-      unipileApiKey: args?.UNIPILE_API_KEY || '',
-      transport: 'stdio',
-      port: 3000,
-    });
+      // 2. Registrar los 30 tools (imports estaticos, no dinamicos)
+      registerTelegramTools(server);
+      registerAppointmentTools(server);
+      registerPatientTools(server);
+      registerUserTools(server);
+      registerOrganizationTools(server);
+      registerPriceTools(server);
+      registerPaymentTools(server);
 
-    // 2. Imports dinamicos DESPUES de setear config
-    const { registerTelegramTools } = await import('./tools/telegram.ts');
-    const { registerAppointmentTools } = await import('./tools/appointments.ts');
-    const { registerPatientTools } = await import('./tools/patients.ts');
-    const { registerUserTools } = await import('./tools/users.ts');
-    const { registerOrganizationTools } = await import('./tools/organization.ts');
-    const { registerPriceTools } = await import('./tools/prices.ts');
-    const { registerPaymentTools } = await import('./tools/payments.ts');
-
-    // 3. Registrar los 30 tools
-    registerTelegramTools(server);
-    registerAppointmentTools(server);
-    registerPatientTools(server);
-    registerUserTools(server);
-    registerOrganizationTools(server);
-    registerPriceTools(server);
-    registerPaymentTools(server);
+      console.error('[mcp-doctoc-carla] 30 tools registrados en Metorial.');
+    } catch (err) {
+      console.error('[mcp-doctoc-carla] Error en callback:', err);
+      throw err;
+    }
   },
 );
