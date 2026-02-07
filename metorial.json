@@ -1,14 +1,4 @@
 {
-  "name": "mcp-doctoc-carla",
-  "runtime": "node",
-  "build": {
-    "command": "npm install && npm run build"
-  },
-  "start": {
-    "command": "node build/src/index.js"
-  },
-  "env": {
-    "TRANSPORT": "http",
-    "PORT": "3000"
-  }
+  "runtime": "typescript.deno",
+  "entrypoint": "src/index.ts"
 }
