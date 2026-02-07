@@ -1,4 +1,4 @@
 {
   "runtime": "typescript.deno",
-  "entrypoint": "src/index.ts"
+  "entrypoint": "src/metorial.ts"
 }
