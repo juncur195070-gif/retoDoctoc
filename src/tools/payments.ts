@@ -5,7 +5,7 @@ import { doctocRequest } from '../utils/doctoc-client.ts';
 export function registerPaymentTools(server: McpServer): void {
   server.tool(
     'create-payment',
-    'Crea un nuevo pago o recibo. Incluye los items cobrados (campos) y los metodos de pago utilizados (pagos).',
+    'Crea un nuevo pago o recibo. Incluye los items cobrados (campos) y los metodos de pago utilizados (pagos). Nota: este endpoint puede no estar disponible en todas las instancias.',
     {
       patient: z.string().describe('ID del paciente'),
       medico: z.string().optional().describe('ID del medico asociado al pago'),
@@ -72,7 +72,7 @@ export function registerPaymentTools(server: McpServer): void {
 
   server.tool(
     'get-patient-payments',
-    'Obtiene todos los pagos de un paciente con total, monto pendiente y detalle de cada pago.',
+    'Obtiene todos los pagos de un paciente. Nota: este endpoint puede no estar disponible en todas las instancias.',
     {
       patientID: z.string().describe('ID del paciente'),
     },
@@ -95,7 +95,7 @@ export function registerPaymentTools(server: McpServer): void {
 
   server.tool(
     'get-day-payments',
-    'Obtiene todos los pagos registrados en un dia especifico.',
+    'Obtiene todos los pagos registrados en un dia especifico. Nota: este endpoint puede no estar disponible en todas las instancias.',
     {
       date: z.string().describe('Fecha en formato YYYY-MM-DD'),
     },
