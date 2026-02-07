@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { doctocRequest } from '../utils/doctoc-client.js';
+import { doctocRequest } from '../utils/doctoc-client.ts';
 
 export function registerPatientTools(server: McpServer): void {
   server.tool(

@@ -1,5 +1,5 @@
-import { config } from './config.js';
-import { createServer } from './server.js';
+import { config } from './config.ts';
+import { createServer } from './server.ts';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import http from 'node:http';

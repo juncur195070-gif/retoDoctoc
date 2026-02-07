@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { unipileGet, unipilePostMessage } from '../utils/unipile-client.js';
+import { unipileGet, unipilePostMessage } from '../utils/unipile-client.ts';
 
 export function registerTelegramTools(server: McpServer): void {
   server.tool(

@@ -1,5 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { doctocRequest } from '../utils/doctoc-client.js';
+import { doctocRequest } from '../utils/doctoc-client.ts';
 
 export function registerOrganizationTools(server: McpServer): void {
   server.tool(

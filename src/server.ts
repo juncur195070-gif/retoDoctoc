@@ -1,11 +1,11 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { registerTelegramTools } from './tools/telegram.js';
-import { registerAppointmentTools } from './tools/appointments.js';
-import { registerPatientTools } from './tools/patients.js';
-import { registerUserTools } from './tools/users.js';
-import { registerOrganizationTools } from './tools/organization.js';
-import { registerPriceTools } from './tools/prices.js';
-import { registerPaymentTools } from './tools/payments.js';
+import { registerTelegramTools } from './tools/telegram.ts';
+import { registerAppointmentTools } from './tools/appointments.ts';
+import { registerPatientTools } from './tools/patients.ts';
+import { registerUserTools } from './tools/users.ts';
+import { registerOrganizationTools } from './tools/organization.ts';
+import { registerPriceTools } from './tools/prices.ts';
+import { registerPaymentTools } from './tools/payments.ts';
 
 export function createServer(): McpServer {
   const server = new McpServer({
