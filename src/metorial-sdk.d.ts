@@ -7,9 +7,9 @@ declare module '@metorial/mcp-server-sdk' {
   }
 
   export const metorial: {
-    createServer: (
+    createServer: <T = unknown>(
       options: ServerOptions,
-      callback: (server: McpServer, args?: unknown) => Promise<void>,
+      callback: (server: McpServer, args: T) => Promise<void>,
     ) => void;
   };
 }
