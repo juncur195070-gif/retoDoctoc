@@ -11,8 +11,8 @@ export interface Config {
 function requireEnv(name: string): string {
   const value = process.env[name];
   if (!value) {
-    console.error(`[mcp-doctoc-carla] Variable de entorno requerida no encontrada: ${name}`);
-    process.exit(1);
+    console.error(`[mcp-doctoc-carla] ADVERTENCIA: Variable de entorno no encontrada: ${name}`);
+    return '';
   }
   return value;
 }
