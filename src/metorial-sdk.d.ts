@@ -1,5 +1,11 @@
 declare module '@metorial/mcp-server-sdk' {
-  import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+  // Re-exports from @modelcontextprotocol/sdk
+  export { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+  export * from '@modelcontextprotocol/sdk/server/mcp.js';
+
+  // Re-exports from zod
+  export { z } from 'zod';
+  export * from 'zod';
 
   interface ServerOptions {
     name: string;

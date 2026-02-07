@@ -1,5 +1,5 @@
-import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
-import { z } from 'zod';
+import type { McpServer } from '@metorial/mcp-server-sdk';
+import { z } from '@metorial/mcp-server-sdk';
 import { doctocRequest } from '../utils/doctoc-client.ts';
 
 export function registerPaymentTools(server: McpServer): void {
