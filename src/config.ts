@@ -31,4 +31,18 @@ export function loadConfig(): Config {
   };
 }
 
-export const config = loadConfig();
+let _config: Config | null = null;
+
+export function getConfig(): Config {
+  if (!_config) {
+    _config = loadConfig();
+  }
+  return _config;
+}
+
+// Mantener export para compatibilidad con index.ts local
+export const config = new Proxy({} as Config, {
+  get(_target, prop: string) {
+    return getConfig()[prop as keyof Config];
+  },
+});
