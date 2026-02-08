@@ -1,4 +1,4 @@
-import type { McpServer } from '@metorial/mcp-server-sdk';
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { doctocRequest } from '../utils/doctoc-client.ts';
 
 export function registerOrganizationTools(server: McpServer): void {

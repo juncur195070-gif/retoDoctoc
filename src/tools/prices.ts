@@ -1,5 +1,5 @@
-import type { McpServer } from '@metorial/mcp-server-sdk';
-import { z } from '@metorial/mcp-server-sdk';
+import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { z } from 'zod';
 import { doctocRequest } from '../utils/doctoc-client.ts';
 
 // Fallback: obtener precios desde los tipos de cita cuando getPricesAPI no está disponible
