@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: mcp-doctoc-carla
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node build/src/index.js
+    autoDeploy: true
+    envVars:
+      - key: TRANSPORT
+        value: http
+      - key: PORT
+        value: "3000"
+      - key: DOCTOC_API_URL
+        value: https://us-central1-doctoc-platform.cloudfunctions.net
+      - key: DOCTOC_API_TOKEN
+        sync: false
+      - key: DOCTOC_ORG_ID
+        sync: false
+      - key: UNIPILE_DSN
+        sync: false
+      - key: UNIPILE_API_KEY
+        sync: false
